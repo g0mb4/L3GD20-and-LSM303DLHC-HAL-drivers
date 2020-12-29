@@ -11,7 +11,7 @@ Change
 ```c
 #include "stm32f3xx_hal.h"
 ```
-in **stm32f3xx_l3gd20.h** and **stm32f3xx_lsm303dlhc.h**.
+in **stm32f3xx_l3gd20.h** and **stm32f3xx_lsm303dlhc.h**
 
 Change
 ```c
