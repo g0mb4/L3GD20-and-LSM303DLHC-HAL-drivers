@@ -13,6 +13,13 @@ Change
 ```
 in **stm32f3xx_l3gd20.h** and **stm32f3xx_lsm303dlhc.h**.
 
+Change
+```c
+/* default CS pin on STM32F3 Discovery board */
+#define L3GD20_CS_PORT				GPIOE
+#define L3GD20_CS_PIN				GPIO_PIN_3
+```
+in **stm32f3xx_l3gd20.h**
 
 ## Example
 ```c
