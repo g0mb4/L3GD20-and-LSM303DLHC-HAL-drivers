@@ -37,13 +37,16 @@ lsm303dlhc_data_t lsm303dlhc_data_mag_conv = { 0 };
 ...
 int main(void) {
 ...
-	uint8_t acc_ctrl_reg1_a = LSM303DLHC_ACR1A_XEN | LSM303DLHC_ACR1A_YEN | LSM303DLHC_ACR1A_ZEN | LSM303DLHC_ACR1A_ODR30_100_HZ;
-	uint8_t acc_ctrl_reg2_a = 0x00;
-	uint8_t acc_ctrl_reg3_a = 0x00;
-	uint8_t acc_ctrl_reg4_a = LSM303DLHC_ACR4A_FS10_1MG;
-	uint8_t acc_ctrl_reg5_a = 0x00;
-	uint8_t acc_ctrl_reg6_a = 0x00;
-	uint8_t acc_ctrl_regs[6] = {acc_ctrl_reg1_a, acc_ctrl_reg2_a, acc_ctrl_reg3_a, acc_ctrl_reg4_a, acc_ctrl_reg5_a, acc_ctrl_reg6_a};
+	lsm303dlhc_acc_init_t lsm303dlhc_acc_init = { 0 };
+	lsm303dlhc_mag_init_t lsm303dlhc_mag_init = { 0 };
+
+	lsm303dlhc_acc_init.ctrl_reg1_a = LSM303DLHC_ACR1A_XEN | LSM303DLHC_ACR1A_YEN | LSM303DLHC_ACR1A_ZEN | LSM303DLHC_ACR1A_ODR30_100_HZ;
+	lsm303dlhc_acc_init.ctrl_reg4_a = LSM303DLHC_ACR4A_FS10_1MG;
+
+	lsm303dlhc_mag_init.op = LSM303DLHC_MAGOP_CONT;
+	lsm303dlhc_mag_init.rate = LSM303DLHC_MAGRATE_15;
+	lsm303dlhc_mag_init.gain = LSM303DLHC_MAGGAIN_1_3;
+    lsm303dlhc_mag_init.auto_range = false;
 	...
 	/* init SPI/I2C */
 	...
@@ -51,11 +54,11 @@ int main(void) {
 		/* handle error */
 	}
 
-	if (lsm303dlhc_init_acc(&hi2c1, acc_ctrl_regs) != LSM303DLHC_OK) {
+	if (lsm303dlhc_init_acc(&hi2c1, &lsm303dlhc_acc_init) != LSM303DLHC_OK) {
 		/* handle error */
 	}
 
-	if (lsm303dlhc_init_mag(&hi2c1, LSM303DLHC_MAGOP_CONT, LSM303DLHC_MAGRATE_15, LSM303DLHC_MAGGAIN_1_3, false) != LSM303DLHC_OK) {
+	if (lsm303dlhc_init_mag(&hi2c1, &lsm303dlhc_mag_init) != LSM303DLHC_OK) {
 		/* handle error */
 	}
 	...

@@ -142,8 +142,7 @@ typedef enum {
 #define LSM303DLHC_MAG_SENSORS_GAUSS_TO_MICROTESLA    (100.0f)  // Gauss to micro-Tesla multiplier
 
 typedef enum {
-    LSM303DLHC_OK,
-    LSM303DLHC_ERROR
+    LSM303DLHC_OK, LSM303DLHC_ERROR
 } lsm303dlhc_result_t;
 
 typedef struct {
@@ -158,16 +157,32 @@ typedef struct {
     float z;
 } lsm303dlhc_data_t;
 
-lsm303dlhc_result_t lsm303dlhc_init_acc(I2C_HandleTypeDef *i2c, const uint8_t ctrl_regx_a[6]);
+typedef struct {
+    uint8_t ctrl_reg1_a;
+    uint8_t ctrl_reg2_a;
+    uint8_t ctrl_reg3_a;
+    uint8_t ctrl_reg4_a;
+    uint8_t ctrl_reg5_a;
+    uint8_t ctrl_reg6_a;
+} lsm303dlhc_acc_init_t;
+
+typedef struct {
+    lsm303dlhc_mag_op_t op;
+    lsm303dlhc_mag_rate_t rate;
+    lsm303dlhc_mag_gain_t gain;
+    bool auto_range;
+} lsm303dlhc_mag_init_t;
+
+lsm303dlhc_result_t lsm303dlhc_init_acc(I2C_HandleTypeDef *i2c, const lsm303dlhc_acc_init_t *init);
 lsm303dlhc_result_t lsm303dlhc_set_acc_scale(uint8_t ctrl_reg4_a);
 lsm303dlhc_result_t lsm303dlhc_read_acc_raw(lsm303dlhc_data_raw_t *data);
-void lsm303dlhc_convert_acc(lsm303dlhc_data_t *conv, lsm303dlhc_data_raw_t *raw);
+void lsm303dlhc_convert_acc(lsm303dlhc_data_t *conv, const lsm303dlhc_data_raw_t *raw);
 
-lsm303dlhc_result_t lsm303dlhc_init_mag(I2C_HandleTypeDef *i2c, lsm303dlhc_mag_op_t op, lsm303dlhc_mag_rate_t rate, lsm303dlhc_mag_gain_t gain, bool auto_range);
+lsm303dlhc_result_t lsm303dlhc_init_mag(I2C_HandleTypeDef *i2c, const lsm303dlhc_mag_init_t *init);
 lsm303dlhc_result_t lsm303dlhc_set_mag_gain(lsm303dlhc_mag_gain_t gain);
 lsm303dlhc_result_t lsm303dlhc_set_mag_rate(lsm303dlhc_mag_rate_t rate);
 lsm303dlhc_result_t lsm303dlhc_read_mag_raw(lsm303dlhc_data_raw_t *data);
-void lsm303dlhc_convert_mag(lsm303dlhc_data_t *conv, lsm303dlhc_data_raw_t *raw);
+void lsm303dlhc_convert_mag(lsm303dlhc_data_t *conv, const lsm303dlhc_data_raw_t *raw);
 
 /* C++ detection */
 #ifdef __cplusplus
