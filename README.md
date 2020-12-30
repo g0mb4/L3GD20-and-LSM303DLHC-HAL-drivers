@@ -36,16 +36,16 @@ lsm303dlhc_data_t lsm303dlhc_data_acc_conv = { 0 };
 lsm303dlhc_data_t lsm303dlhc_data_mag_conv = { 0 };
 ...
 int main(void) {
-...
-	lsm303dlhc_acc_init_t lsm303dlhc_acc_init = { 0 };
-	lsm303dlhc_mag_init_t lsm303dlhc_mag_init = { 0 };
-
-	lsm303dlhc_acc_init.ctrl_reg1_a = LSM303DLHC_ACR1A_XEN | LSM303DLHC_ACR1A_YEN | LSM303DLHC_ACR1A_ZEN | LSM303DLHC_ACR1A_ODR30_100_HZ;
-	lsm303dlhc_acc_init.ctrl_reg4_a = LSM303DLHC_ACR4A_FS10_1MG;
-
-	lsm303dlhc_mag_init.op = LSM303DLHC_MAGOP_CONT;
-	lsm303dlhc_mag_init.rate = LSM303DLHC_MAGRATE_15;
-	lsm303dlhc_mag_init.gain = LSM303DLHC_MAGGAIN_1_3;
+    ...
+    lsm303dlhc_acc_init_t lsm303dlhc_acc_init = { 0 };
+    lsm303dlhc_mag_init_t lsm303dlhc_mag_init = { 0 };
+    
+    lsm303dlhc_acc_init.ctrl_reg1_a = LSM303DLHC_ACR1A_XEN | LSM303DLHC_ACR1A_YEN | LSM303DLHC_ACR1A_ZEN | LSM303DLHC_ACR1A_ODR30_100_HZ;
+    lsm303dlhc_acc_init.ctrl_reg4_a = LSM303DLHC_ACR4A_FS10_1MG;
+    
+    lsm303dlhc_mag_init.op = LSM303DLHC_MAGOP_CONT;
+    lsm303dlhc_mag_init.rate = LSM303DLHC_MAGRATE_15;
+    lsm303dlhc_mag_init.gain = LSM303DLHC_MAGGAIN_1_3;
     lsm303dlhc_mag_init.auto_range = false;
 	...
 	/* init SPI/I2C */
